@@ -1,35 +1,29 @@
-
 class Solution {
-    public List<Integer> luckyNumbers(int[][] matrix) {
-        int N = matrix.length, M = matrix[0].length;
-
-        List<Integer> rowMin = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            int rMin = Integer.MAX_VALUE;
-            for (int j = 0; j < M; j++) {
-                rMin = Math.min(rMin, matrix[i][j]);
+    public List<Integer> luckyNumbers (int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        
+        int[] row_minimums = new int[rows];
+        Arrays.fill(row_minimums, Integer.MAX_VALUE);
+        int[] col_maximums = new int[cols];
+        
+        for (int row_ind = 0; row_ind < rows; ++row_ind) {
+            for (int col_ind = 0; col_ind < cols; ++col_ind) {
+                int el = matrix[row_ind][col_ind];
+                row_minimums[row_ind] = Math.min(row_minimums[row_ind], el);
+                col_maximums[col_ind] = Math.max(col_maximums[col_ind], el);
             }
-            rowMin.add(rMin);
         }
-
-        List<Integer> colMax = new ArrayList<>();
-        for (int i = 0; i < M; i++) {
-            int cMax = Integer.MIN_VALUE;
-            for (int j = 0; j < N; j++) {
-                cMax = Math.max(cMax, matrix[j][i]);
-            }
-            colMax.add(cMax);
-        }
-
-        List<Integer> luckyNumbers = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (matrix[i][j] == rowMin.get(i) && matrix[i][j] == colMax.get(j)) {
-                    luckyNumbers.add(matrix[i][j]);
+        
+        for (int row_ind = 0; row_ind < rows; ++row_ind) {
+            for (int col_ind = 0; col_ind < cols; ++col_ind) {
+                int el = matrix[row_ind][col_ind];
+                if (el == row_minimums[row_ind] && el == col_maximums[col_ind]) {
+                    return Collections.singletonList(el);
                 }
             }
         }
-
-        return luckyNumbers;
+        
+        return Collections.emptyList();
     }
 }
