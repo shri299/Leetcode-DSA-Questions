@@ -48,28 +48,23 @@ public class Solution {
 
         // return null;
 
-        if(head == null || head.next==null  ){
-            System.out.print("no cycle");
-            return null;
-        }
-        ListNode fast = head;
         ListNode slow = head;
-        while(fast!=null && fast.next!=null){
+        ListNode fast = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
             fast = fast.next.next;
-            slow= slow.next;
-            if(fast==slow){
-                break;
+            
+            if (slow == fast) {
+                ListNode slow2 = head;
+                while (slow2 != slow) {
+                    slow = slow.next;
+                    slow2 = slow2.next;
+                }
+                return slow;
             }
         }
-        if(fast!=slow){
-            return null;
-        }
-        slow = head;
-        while(slow!=fast){
-            fast= fast.next;
-            slow= slow.next;
-        }
-        return slow;
-
+        
+        return null;
     }
 }
