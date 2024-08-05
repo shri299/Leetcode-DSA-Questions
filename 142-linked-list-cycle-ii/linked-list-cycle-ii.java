@@ -11,41 +11,65 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
+        // ListNode fast = head;
+        // ListNode slow = head;
+        // boolean flag = false;
+        // while(fast!=null && fast.next!=null){
+        //     fast = fast.next.next;
+        //     slow = slow.next;
+        //     if (fast==slow){
+        //         flag = true;
+        //         break;
+        //     }
+        // }
+
+        // //count length of cycle
+        // if(flag){
+        //     slow = slow.next;
+        // int count = 1;
+        // while (fast!=slow){
+        //     slow = slow.next;
+        //     count = count+1;
+        // }
+
+        // ListNode temp = head;
+        // ListNode temp1 = head;
+        // while(count!=0){
+        //     temp1 = temp1.next;
+        //     count--;
+        // }
+
+        // while(temp!=temp1){
+        //     temp = temp.next;
+        //     temp1 = temp1.next;
+        // }
+        // return temp;
+        // }
+
+        // return null;
+
+        if(head == null || head.next==null  ){
+            System.out.print("no cycle");
+            return null;
+        }
         ListNode fast = head;
         ListNode slow = head;
-        boolean flag = false;
         while(fast!=null && fast.next!=null){
             fast = fast.next.next;
-            slow = slow.next;
-            if (fast==slow){
-                flag = true;
+            slow= slow.next;
+            if(fast==slow){
                 break;
             }
         }
-
-        //count length of cycle
-        if(flag){
-            slow = slow.next;
-        int count = 1;
-        while (fast!=slow){
-            slow = slow.next;
-            count = count+1;
+        if(fast!=slow){
+            return null;
         }
-
-        ListNode temp = head;
-        ListNode temp1 = head;
-        while(count!=0){
-            temp1 = temp1.next;
-            count--;
+        slow = head;
+        while(slow!=fast){
+            fast= fast.next;
+            slow= slow.next;
         }
+        return slow;
 
-        while(temp!=temp1){
-            temp = temp.next;
-            temp1 = temp1.next;
-        }
-        return temp;
-        }
-
-        return null;
     }
 }
