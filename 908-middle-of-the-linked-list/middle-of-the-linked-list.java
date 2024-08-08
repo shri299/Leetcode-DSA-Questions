@@ -10,18 +10,18 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-        //calculate length and iterate on divide by two
-        //use two pointers from head to tail
-        //use two pointers -> slow:x and fast:2x, by the time fast is null, slow will be in the middly
-        int length=0;
-        ListNode res=head;
-        while(res!=null){
-            length++;
-            res=res.next;
+        //approaches I can think of:
+            //calculate length and iterate on divide by two
+            //use two pointers from head to tail
+            //use two pointers -> slow:x and fast:2x, by the time fast is null, slow will be in the middly
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        length/=2;
-        for(int i=0;i<length;i++) head=head.next;
-        return head;
+        return slow;
        
     }
 
