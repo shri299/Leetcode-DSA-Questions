@@ -17,5 +17,6 @@ public class Solution {
             ptrB = ptrB == null ? headA : ptrB.next; // once we're done with B, move to A
         }
 	return ptrA;
+    
     }
 }
