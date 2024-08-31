@@ -25,7 +25,7 @@ class Solution {
 
         while (!queue.isEmpty()){
             int levelSize = queue.size();
-            Double sum = 0.0;
+            double sum = 0;
             for (int i=0;i<levelSize;i++){
                 TreeNode target = queue.poll();
                 sum = sum + target.val;
@@ -36,8 +36,8 @@ class Solution {
                     queue.offer(target.right);
                 }
             }
-            Double avg = sum/levelSize;
-            result.add(avg);
+            sum = sum/levelSize;
+            result.add(sum);
         }
 
         return result;
