@@ -22,13 +22,11 @@ class Solution {
         if(root==null){
             return 0;
         }
-
         num = num*10 + root.val;
 
         if(root.left==null && root.right==null){
             return num;
         }
-
         return helper(root.left,num) + helper(root.right,num);
 
     }
