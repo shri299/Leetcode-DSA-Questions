@@ -49,7 +49,7 @@ public class Codec {
 
     public TreeNode helperTwo(List<String> list){
         String val = list.remove(list.size()-1);
-        if(val.charAt(0)=='n'){
+        if(val.equals("null")){
             return null;
         }
         TreeNode node = new TreeNode(Integer.parseInt(val));
