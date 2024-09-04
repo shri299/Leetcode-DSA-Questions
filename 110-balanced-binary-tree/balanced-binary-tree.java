@@ -43,7 +43,7 @@ class Solution {
         return flag;
     }
     public int height(TreeNode node){
-        if(node == null) return 0;
+        if(node == null) return -1;
         int left = height(node.left);
         int right = height(node.right);
         int diff = Math.abs(left - right);
