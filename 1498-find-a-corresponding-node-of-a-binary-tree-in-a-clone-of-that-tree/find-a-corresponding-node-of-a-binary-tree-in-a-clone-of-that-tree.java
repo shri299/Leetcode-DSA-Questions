@@ -10,7 +10,7 @@
 
 class Solution {
 
-    TreeNode answer = null;
+    /////////////////////////////BFS//////////////////////////////
 
     // public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
     //     if(original==null && cloned==null){
@@ -40,6 +40,11 @@ class Solution {
 
     //     return null;
     // }
+
+
+    /////////////////////////////////DFS//////////////////////////
+
+    TreeNode answer = null;
 
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
         targetCopy(cloned,target.val);
