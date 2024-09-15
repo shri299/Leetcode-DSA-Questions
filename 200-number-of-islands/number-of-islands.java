@@ -34,18 +34,7 @@ class Solution {
             int col = queue.peek().second;
             queue.remove();
 
-            // for(int delRow=-1;delRow<=1;delRow++){
-            // for(int delCol=-1;delCol<=1;delCol++){
-            //     int newRow = row1 + delRow;
-            //     int newCol = col1 + delCol;
-
-            //     if(newRow>=0 && newRow<n && newCol>=0 && newCol<m && !vis[newRow][newCol] && grid[newRow][newCol]!='0'){
-            //         queue.offer(new Pair(newRow,newCol));
-            //         vis[newRow][newCol] = true;
-            //     }
-            // }
-
-            //4 directions - 4 cases
+            //4 directions -> 4 cases
 
             if(validate(row-1,col,vis,grid)){
                 queue.offer(new Pair(row-1,col));
