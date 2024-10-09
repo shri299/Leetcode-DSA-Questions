@@ -1,8 +1,19 @@
 class Solution {
     public int climbStairs(int n) {
-        int[] dp = new int[n+1];
-        Arrays.fill(dp,-1);
-        return solve(n,dp);
+        //Tabulation with O(1) SC
+
+        int prev1 = 1;
+        int prev2 = 1;
+
+        for (int i = 2; i <= n; ++i)
+        {
+            int curr = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = curr;
+        }
+
+        return prev2;
+
     }
 
     //recursion with exponetial TC
@@ -15,19 +26,20 @@ class Solution {
     //     return solve(n-1) + solve(n-2);
     // }
 
+
     //memoization with non-exponential TC
 
-    private int solve(int n,int[] dp){
-        if(n<=1){
-            return 1;
-        }
+    // private int solve(int n,int[] dp){
+    //     if(n<=1){
+    //         return 1;
+    //     }
 
-        if(dp[n]!=-1){
-            return dp[n];
-        }
+    //     if(dp[n]!=-1){
+    //         return dp[n];
+    //     }
 
-        return dp[n] = solve(n-1,dp) + solve(n-2,dp);
-    }
+    //     return dp[n] = solve(n-1,dp) + solve(n-2,dp);
+    // }
 
 
     //tabulation with O(n) SC
