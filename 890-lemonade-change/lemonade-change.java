@@ -1,29 +1,29 @@
 class Solution {
-    public boolean lemonadeChange(int[] bills) {
-        int five_dollars = 0, ten_dollars = 0;
+public boolean lemonadeChange(int[] bills) {
+       int five = 0;
+        int ten = 0;
 
-        for (int x : bills) {
-            if (x == 5) {
-                five_dollars++;
-            } else if (x == 10) {
-                if (five_dollars > 0) {
-                    five_dollars--;
-                    ten_dollars++;
+        for (int i=0;i<bills.length;i++) {
+            if (bills[i] == 5) {
+                five++;
+            } else if (bills[i] == 10) {
+                if (five > 0) {
+                    five--;
                 } else {
                     return false;
                 }
-            } else {
-                if (five_dollars > 0 && ten_dollars > 0) {
-                    five_dollars--;
-                    ten_dollars--;
-                } else if (five_dollars > 2) {
-                    five_dollars -= 3;
+                ten++;
+            } else { // bill == 20
+                if (five > 0 && ten > 0) {
+                    five--;
+                    ten--;
+                } else if (five >= 3) {
+                    five -= 3;
                 } else {
                     return false;
                 }
             }
         }
-
         return true;
     }
-}
+};
