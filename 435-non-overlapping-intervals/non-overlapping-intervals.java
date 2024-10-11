@@ -1,43 +1,37 @@
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-        int len = intervals.length;
-        ArrayList<Intervals> list = new ArrayList<>();
+        
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1]));
 
-        for(int i=0;i<len;i++){
-            list.add(new Intervals(intervals[i][0],intervals[i][1]));
-        }
-
-        Collections.sort(list);
-
-        int prevEnd = list.get(0).end;
+        int prevEnd = intervals[0][1];
         int count = 1;
 
-        for (int i=1;i<list.size();i++){
-            int currStart = list.get(i).start;
+        for (int i=1;i<intervals.length;i++){
+            int currStart = intervals[i][0];
 
             if (currStart>=prevEnd){
                 count++;
-                prevEnd = list.get(i).end;
+                prevEnd = intervals[i][1];
             }
         }
 
-        return len-count;
+        return intervals.length-count;
         
     }
 
-    class Intervals implements Comparable<Intervals>{
-        int start;
-        int end;
+    // class Intervals implements Comparable<Intervals>{
+    //     int start;
+    //     int end;
         
-        public Intervals (int start, int end){
-            this.start=start;
-            this.end=end;
-        }
+    //     public Intervals (int start, int end){
+    //         this.start=start;
+    //         this.end=end;
+    //     }
 
-        @Override
-        public int compareTo(Intervals o) {
-            return this.end-o.end;
-        }
+    //     @Override
+    //     public int compareTo(Intervals o) {
+    //         return this.end-o.end;
+    //     }
 
-    }
+    // }
 }
