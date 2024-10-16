@@ -4,23 +4,47 @@ class Solution {
         Arrays.fill(dp,-1);
 
 
-        dp[nums.length-1] = nums[nums.length-1];//dp[4]=1
+        //tabulation with exptra space complexity
+
+        // dp[nums.length-1] = nums[nums.length-1];//dp[4]=1
+        // int take = 0;
+        // int notTake = 0;
+
+        // for(int i=nums.length-2;i>=0;i--){
+        //     take = nums[i];
+        //     if(i<nums.length-2){
+        //         take = take + dp[i+2];
+        //     }
+            
+        //     notTake = dp[i+1];
+
+        //     dp[i] = Math.max(take,notTake);//dp[3]=3//dp[2]=10//dp[1]=10//dp[0]=12
+        // }
+
+        
+        // return dp[0];
+
+
+        //tabulation with no extra space complexity
+        int var1 = nums[nums.length-1];//dp[4]=1
         int take = 0;
         int notTake = 0;
+        int var2=0;
 
         for(int i=nums.length-2;i>=0;i--){
             take = nums[i];
             if(i<nums.length-2){
-                take = take + dp[i+2];
+                take = take + var2;
             }
             
-            notTake = dp[i+1];
+            notTake = var1;
+            var2 = notTake;
 
-            dp[i] = Math.max(take,notTake);//dp[3]=3//dp[2]=10//dp[1]=10//dp[0]=12
+            var1 =  Math.max(take,notTake);//dp[3]=3//dp[2]=10//dp[1]=10//dp[0]=12
         }
 
-        
-        return dp[0];
+        return var1;
+
     }
 
     //memoization
