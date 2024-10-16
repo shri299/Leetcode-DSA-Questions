@@ -3,26 +3,24 @@ class Solution {
         int[] dp = new int[nums.length];
         Arrays.fill(dp,-1);
 
-        //Tabulation
 
-        // dp[0] = nums[0];
-        // int take = 0;
-        // int notTake = 0;
+        dp[nums.length-1] = nums[nums.length-1];//dp[4]=1
+        int take = 0;
+        int notTake = 0;
 
-        // for(int i=1;i<nums.length;i++){
-        //     if(i>1){
-        //         take = take + dp[i-2];
-        //     }
+        for(int i=nums.length-2;i>=0;i--){
+            take = nums[i];
+            if(i<nums.length-2){
+                take = take + dp[i+2];
+            }
             
-        //     take = nums[i];
-            
-        //     notTake = dp[i-1];
+            notTake = dp[i+1];
 
-        //     dp[i] = Math.max(take,notTake);
-        // }
+            dp[i] = Math.max(take,notTake);//dp[3]=3//dp[2]=10//dp[1]=10//dp[0]=12
+        }
 
-        return solve(dp,nums,0);
-        //return dp[nums.length-1];
+        
+        return dp[0];
     }
 
     //memoization
