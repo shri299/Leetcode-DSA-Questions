@@ -1,71 +1,26 @@
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-        //create a dummy visited array
-        int n = image.length;
-        int m = image[0].length;
+        int startPixelColor = image[sr][sc];
 
-        boolean[][] vis = new boolean[n][m];
-
-        return bfs(sr,sc,vis,image,color);
-
-    }
-
-    public int[][] bfs(int sr,int sc, boolean[][] vis, int[][] image, int color){
-        Queue<Pair> queue = new LinkedList<>();
-        vis[sr][sc] = true;
-        int target = image[sr][sc];
-        image[sr][sc] = color;
-        queue.offer(new Pair(sr,sc));
-
-        while(!queue.isEmpty()){
-            //go in 4 directions, hence 4 cases
-            Pair p = queue.poll();
-            int row = p.first;
-            int col = p.second;
-
-            if(validate(row,col-1,vis,image,target)){
-                queue.offer(new Pair(row,col-1));
-                vis[row][col-1]=true;
-                image[row][col-1]=color;
-            }
-
-            if(validate(row,col+1,vis,image,target)){
-                queue.offer(new Pair(row,col+1));
-                vis[row][col+1]=true;
-                image[row][col+1]=color;
-            }
-
-            if(validate(row-1,col,vis,image,target)){
-                queue.offer(new Pair(row-1,col));
-                vis[row-1][col]=true;
-                image[row-1][col]=color;
-            }
-
-            if(validate(row+1,col,vis,image,target)){
-                queue.offer(new Pair(row+1,col));
-                vis[row+1][col]=true;
-                image[row+1][col]=color;
-            }
-
+        if(startPixelColor!=color){
+            dfs(image,sr,sc,startPixelColor,color);
         }
 
         return image;
-
     }
 
-    public boolean validate(int row, int col, boolean[][] vis, int[][] image, int target){
-        int n = image.length;
-        int m = image[0].length;
-        return row>=0 && row<n && col>=0 && col<m && !vis[row][col] && image[row][col]==target;
-    }
-
-    class Pair{
-        int first;
-        int second;
-
-        Pair (int first, int second){
-            this.first=first;
-            this.second=second;
+    public void dfs(int[][] image, int x, int y, int startPixelColor, int color){
+        if(x<0 || y<0 || x>=image.length || y>=image[0].length){
+            return;
         }
+        if(image[x][y]!=startPixelColor || image[x][y]==color){
+            return;
+        }
+        image[x][y] = color;
+
+        dfs(image,x-1,y,startPixelColor,color);
+        dfs(image,x+1,y,startPixelColor,color);
+        dfs(image,x,y+1,startPixelColor,color);
+        dfs(image,x,y-1,startPixelColor,color);
     }
 }
