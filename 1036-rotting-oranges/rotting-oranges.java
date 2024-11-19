@@ -1,48 +1,64 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        int[][] visited = grid;
-        Queue<int[]> q = new LinkedList<>();
-        int countFreshOrange = 0;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (visited[i][j] == 2) {
-                    q.offer(new int[] {i, j});
-                }
-                if (visited[i][j] == 1) {
-                    countFreshOrange++;
+        int n = grid.length;
+        int m = grid[0].length;
+        int parentTime = 0;
+        Queue<Pair> queue = new LinkedList<>();
+
+        int[] delX = {-1,0,1,0};
+        int[] delY = {0,-1,0,1};
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==2){
+                    queue.offer(new Pair(i,j,parentTime));
                 }
             }
         }
-        if (countFreshOrange == 0)
-            return 0;
-        if (q.isEmpty())
-            return -1;
-        
-        int minutes = -1;
-        int[][] dirs = {{1, 0},{-1, 0},{0, -1},{0, 1}};
-        while (!q.isEmpty()) {
-            int size = q.size();
-            while (size-- > 0) {
-                int[] cell = q.poll();
-                int x = cell[0];
-                int y = cell[1];
-                for (int[] dir : dirs) {
-                    int i = x + dir[0];
-                    int j = y + dir[1];
-                    if (i >= 0 && i < m && j >= 0 && j < n && visited[i][j] == 1) {
-                        visited[i][j] = 2;
-                        countFreshOrange--;
-                        q.offer(new int[] {i, j});
+
+        while(!queue.isEmpty()){
+            Pair parent = queue.poll();
+            int parentRow = parent.row;
+            int parentCol = parent.col;
+            parentTime = parent.time;
+
+            for(int i=0;i<delX.length;i++){
+                
+                    int newRow = parentRow + delX[i];
+                    int newCol = parentCol + delY[i];
+
+                    if(isValid(newRow,newCol,grid)){
+                        grid[newRow][newCol]=2;
+                        queue.offer(new Pair(newRow, newCol, parentTime+1));
                     }
+                
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    return -1;
                 }
             }
-            minutes++;
         }
-        
-        if (countFreshOrange == 0)
-            return minutes;
-        return -1;
+
+        return parentTime;
+    }
+
+    public boolean isValid(int r, int c, int[][] grid){
+        return r>=0 && c>=0 && r<grid.length && c<grid[0].length && grid[r][c]==1;
+    }
+
+    class Pair{
+        int row;
+        int col;
+        int time;
+
+        public Pair (int row, int col,int time){
+            this.row=row;
+            this.col=col;
+            this.time=time;
+        }
     }
 }
