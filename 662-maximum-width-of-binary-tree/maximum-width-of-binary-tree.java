@@ -38,11 +38,9 @@ class Solution {
                 Node eachNode = queue.remove();
                 int index = eachNode.idx; 
                 if(i==0) 
-                    start = index; //start and end index for each level
-                
+                    start = index;
                 if(i==size-1) 
                     end = index;
-                
                 if(eachNode.node.left!=null)
                     queue.add(new Node(eachNode.node.left, 2*eachNode.idx));
 
