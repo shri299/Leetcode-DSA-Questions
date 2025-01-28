@@ -8,21 +8,27 @@
  * }
  */
 class Solution {
+    private boolean ans = false;
+    private TreeNode answer = null;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root==null){
-            return null;
-        }
-        if(root==p || root==q){
-            return root;
-        }
+        helper(root, p, q);
+        return answer;
+    }
 
-        TreeNode left = lowestCommonAncestor(root.left,p,q);
-        TreeNode right = lowestCommonAncestor(root.right,p,q);
-
-        if(left!=null && right!=null){
-            return root;
+    public int helper(TreeNode root, TreeNode p, TreeNode q){
+        if(root==null || ans){
+            return 0;
         }
-
-        return left==null ? right : left;
+        int found = 0;
+        if(root.val==p.val || root.val==q.val){
+            found = 1;
+        }
+        int leftTrack = helper(root.left,p,q);
+        int rightTrack = helper(root.right,p,q);
+        if((found + leftTrack + rightTrack)==2 && !ans){
+            ans = true;
+            answer = root;
+        }
+        return found + leftTrack + rightTrack;
     }
 }
