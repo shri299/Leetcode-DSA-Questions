@@ -2,67 +2,46 @@ class Solution {
     public int rob(int[] nums) {
         int[] dp = new int[nums.length];
         Arrays.fill(dp,-1);
-
-
-        //tabulation with exptra space complexity
-
-        // dp[nums.length-1] = nums[nums.length-1];//dp[4]=1
-        // int take = 0;
-        // int notTake = 0;
-
-        // for(int i=nums.length-2;i>=0;i--){
-        //     take = nums[i];
-        //     if(i<nums.length-2){
-        //         take = take + dp[i+2];
-        //     }
-            
-        //     notTake = dp[i+1];
-
-        //     dp[i] = Math.max(take,notTake);//dp[3]=3//dp[2]=10//dp[1]=10//dp[0]=12
-        // }
-
-        
-        // return dp[0];
-
-
-        //tabulation with no extra space complexity
-        int var1 = nums[nums.length-1];//dp[4]=1
-        int take = 0;
-        int notTake = 0;
-        int var2=0;
-
-        for(int i=nums.length-2;i>=0;i--){
-            take = nums[i];
-            if(i<nums.length-2){
-                take = take + var2;
-            }
-            
-            notTake = var1;
-            var2 = notTake;
-
-            var1 =  Math.max(take,notTake);//dp[3]=3//dp[2]=10//dp[1]=10//dp[0]=12
-        }
-
-        return var1;
-
+        return helper(nums,nums.length-1,dp);
     }
 
-    //memoization
+    //Recursion : O(2^n)
+    // private int helper(int[] nums,int index){
+    //     if(index==0){
+    //         return nums[index];
+    //     }
+    //     if(index<0){
+    //         return 0;
+    //     }
 
-    private int solve(int[] dp, int[] nums, int len){
-        if(len==nums.length-1){
-            return nums[len];
+    //     int pick = nums[index] + helper(nums,index-2);
+    //     int notPick = helper(nums,index-1);
+
+    //     return Math.max(pick,notPick);
+    // }
+
+
+    private int helper(int[] nums,int index, int[] dp){
+        if(index==0){
+            return nums[index];
         }
-        if(len>nums.length-1){
+        if(index<0){
             return 0;
         }
-        if(dp[len]!=-1){
-            return dp[len];
+        int pick = 0;
+        if(index-2>0 && dp[index-2]!=-1){
+            pick = nums[index] + dp[index-2];
+        }else{
+            pick = nums[index] + helper(nums,index-2,dp);
         }
 
-        int m1 = nums[len] + solve(dp,nums,len+2);
-        int m2 = 0 + solve(dp,nums,len+1);
+        int notPick = 0;
+        if(dp[index-1]!=-1){
+            notPick = dp[index-1];
+        }else{
+            notPick = helper(nums,index-1,dp);
+        }
 
-        return dp[len]=Math.max(m1,m2);
+        return dp[index] = Math.max(pick,notPick);
     }
 }
