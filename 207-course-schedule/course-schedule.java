@@ -1,9 +1,8 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         //create a adj list from the given prerequisites
-
         ArrayList<ArrayList<Integer>> adjList = new ArrayList();
-        ArrayList<Integer> topo = new ArrayList<>();
+        int count = 0;
 
         for(int i=0;i<numCourses;i++){
             adjList.add(new ArrayList());
@@ -32,7 +31,7 @@ class Solution {
 
         while(!queue.isEmpty()){
             int val = queue.poll();
-            topo.add(val);
+            count++;
             for(int neighbour: adjList.get(val)){
                 inDegree[neighbour]--;
                 if (inDegree[neighbour]==0) {
@@ -41,7 +40,7 @@ class Solution {
             }
         }
 
-        if(topo.size()==numCourses){
+        if(count==numCourses){
             return true;
         }
         return false;
