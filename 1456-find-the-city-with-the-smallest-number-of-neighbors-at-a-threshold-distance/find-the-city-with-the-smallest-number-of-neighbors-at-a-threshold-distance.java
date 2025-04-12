@@ -26,7 +26,7 @@ class Solution {
         for(int city = 0; city < n; city++) {
             int cnt = 0;
             for(int adjCity = 0; adjCity < n; adjCity++) {
-                if(cost[city][adjCity] <= distanceThreshold)
+                if(city!=adjCity && cost[city][adjCity] <= distanceThreshold)
                     cnt++;
             }
             if(cnt<=cntCity) {
