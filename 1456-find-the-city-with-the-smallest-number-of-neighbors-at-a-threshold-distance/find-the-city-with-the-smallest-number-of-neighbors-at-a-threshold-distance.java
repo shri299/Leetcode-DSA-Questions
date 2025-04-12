@@ -1,41 +1,40 @@
 class Solution {
-   public int findTheCity(int n, int[][] edges, int distanceThreshold) {
-        int[][] distance = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(distance[i], 1000000000); // Use a large value as infinity
-            distance[i][i] = 0;
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int[][] cost = new int[n][n];
+        for(int i=0;i<n;i++){
+            Arrays.fill(cost[i],Integer.MAX_VALUE);
+            cost[i][i]=0;
+        }
+        for(int i=0;i<edges.length;i++){
+            cost[edges[i][0]][edges[i][1]]=edges[i][2];
+            cost[edges[i][1]][edges[i][0]]=edges[i][2];
         }
 
-        for (int[] edge : edges) {
-            distance[edge[0]][edge[1]] = edge[2];
-            distance[edge[1]][edge[0]] = edge[2];
-        }
-
-        for (int k = 0; k < n; k++) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    distance[i][j] = Math.min(distance[i][j], distance[i][k] + distance[k][j]);
+        for(int via=0;via<n;via++){
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    if(cost[i][via]!=Integer.MAX_VALUE && cost[via][j]!=Integer.MAX_VALUE)
+                    {
+                        cost[i][j] = Math.min(cost[i][j],cost[i][via]+cost[via][j]);
+                    }
                 }
             }
         }
 
-        int ans = -1;
-        int mini = Integer.MAX_VALUE;
-        int[] reachable = new int[n];
-        for (int i = 0; i < n; i++) {
-            int count = 0;
-            for (int j = 0; j < n; j++) {
-                if (i != j && distance[i][j] <= distanceThreshold) {
-                    count++;
-                }
+        int cntCity = n;
+        int cityNo = -1;
+        for(int city = 0; city < n; city++) {
+            int cnt = 0;
+            for(int adjCity = 0; adjCity < n; adjCity++) {
+                if(cost[city][adjCity] <= distanceThreshold)
+                    cnt++;
             }
-            reachable[i] = count;
-            if (count <= mini) {
-                mini = count;
-                ans = i;
+            if(cnt<=cntCity) {
+                cntCity = cnt;
+                cityNo = city;
             }
         }
 
-        return ans;
+        return cityNo;
     }
 }
