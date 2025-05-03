@@ -45,7 +45,7 @@ class Solution {
                 maxLen = Math.max(maxLen,len);
             }
             if(zeroCount>k){ //condition violated, start shrinking
-                while(zeroCount>k){
+                if(zeroCount>k){
                     if(nums[left]==0){
                         zeroCount--;
                     }
