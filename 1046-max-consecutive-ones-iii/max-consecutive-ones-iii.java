@@ -44,21 +44,13 @@ class Solution {
                 int len = right - left + 1;
                 maxLen = Math.max(maxLen, len);
             }
-            // if(zeroCount>k){ //condition violated, start shrinking
-            //     while(zeroCount>k){
-            //         if(nums[left]==0){
-            //             zeroCount--;
-            //         }
-            //         left++;
-            //     }
-            // }
-            if (zeroCount > k) { //condition violated, start shrinking
-
-                if (nums[left] == 0) {
-                    zeroCount--;
+            if(zeroCount>k){ //condition violated, start shrinking
+                while(zeroCount>k){
+                    if(nums[left]==0){
+                        zeroCount--;
+                    }
+                    left++;
                 }
-                left++;
-
             }
             right++;
         }
