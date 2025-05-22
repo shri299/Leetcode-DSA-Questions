@@ -13,82 +13,31 @@
  *     }
  * }
  */
-// class Solution {
-//     public List<Double> averageOfLevels(TreeNode root) {
-//         List<Double> result = new ArrayList<>();
-//         if (root==null){
-//             return result;
-//         }
-
-//         Queue<TreeNode> queue = new LinkedList<>();
-//         queue.offer(root);
-
-//         while (!queue.isEmpty()){
-//             int levelSize = queue.size();
-//             double sum = 0;
-//             for (int i=0;i<levelSize;i++){
-//                 TreeNode target = queue.poll();
-//                 sum = sum + target.val;
-//                 if (target.left!=null){
-//                     queue.offer(target.left);
-//                 }
-//                 if (target.right!=null){
-//                     queue.offer(target.right);
-//                 }
-//             }
-//             sum = sum/levelSize;
-//             result.add(sum);
-//         }
-
-//         return result;
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Solution {
-    public List<Double> averageOfLevels(TreeNode root){
+    public List<Double> averageOfLevels(TreeNode root) {
         List<Double> result = new ArrayList<>();
-        if(root==null){
+        if (root==null){
             return result;
         }
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()){
             int levelSize = queue.size();
-            Double sum=0.0;
-            for(int i=0;i<levelSize;i++){
-                TreeNode node = queue.poll();
-                sum = sum + node.val;
-                if(node.left!=null){
-                    queue.offer(node.left);
+            double sum = 0;
+            for (int i=0;i<levelSize;i++){
+                TreeNode target = queue.poll();
+                sum = sum + target.val;
+                if (target.left!=null){
+                    queue.offer(target.left);
                 }
-
-                if(node.right!=null){
-                    queue.offer(node.right);
+                if (target.right!=null){
+                    queue.offer(target.right);
                 }
             }
-
-            Double avg = sum/levelSize;
-            result.add(avg);
+            sum = sum/levelSize;
+            result.add(sum);
         }
 
         return result;
