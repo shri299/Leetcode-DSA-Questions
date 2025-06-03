@@ -22,22 +22,30 @@ class Solution {
     // }
 
 
+    //TC: O(nxn)
     public int minimumTotal(List<List<Integer>> triangle) {
         //start from base and go to top
         int n = triangle.size();
-        int[][] dp = new int[n][n];
+        // int[][] dp = new int[n][n];
+        // for(int i=0;i<n;i++){
+        //     dp[n-1][i]=triangle.get(n-1).get(i);
+        // }
+
+        int[] curr = new int[n];
         for(int i=0;i<n;i++){
-            dp[n-1][i]=triangle.get(n-1).get(i);
+            curr[i]=triangle.get(n-1).get(i);
         }
 
         for(int i = n-2;i>=0;i--){
+            int[] prev = new int[n];
             for(int j=i;j>=0;j--){
-                int down = triangle.get(i).get(j) + dp[i+1][j];
-                int diagonal = triangle.get(i).get(j) + dp[i+1][j+1];
-                dp[i][j] = Math.min(down,diagonal);
+                int down = triangle.get(i).get(j) + curr[j];
+                int diagonal = triangle.get(i).get(j) + curr[j+1];
+                prev[j] = Math.min(down,diagonal);
             }
+            curr = prev;
         }
 
-        return dp[0][0];
+        return curr[0];
     }
 }
