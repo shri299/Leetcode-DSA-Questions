@@ -15,6 +15,8 @@ class Solution {
 
         while(itr>0){
             len--;
+            //reduce last element from starting band
+            //add first element of ending band
             sum = sum - cardPoints[itr-1] + cardPoints[len];
             maxSum = Math.max(maxSum,sum);
             itr--;
