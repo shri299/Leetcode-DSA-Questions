@@ -6,16 +6,16 @@ class Solution {
             int mid = (high+low)/2;
             if(nums[mid]==target) return mid;
             
-            if(nums[low]<=nums[mid]){
-                if(nums[low]<=target && nums[mid]>=target){
+            if(nums[low]<=nums[mid]){ //first half sorted(this is basically done to check on which side pivot lies)
+                if(nums[low]<=target && nums[mid]>=target){ //check if target lies between sorted section
                     high = mid-1;
-                }else{
+                }else{ //if not move to the unsorted part
                     low = mid + 1;
                 }
-            }else{
-                if(nums[mid]<=target && nums[high]>=target){
+            }else{ //if 1st half unsorted(pivot lies in 1st half, so 2nd hald is sorted)
+                if(nums[mid]<=target && nums[high]>=target){ //check if target lies between end half
                     low = mid + 1;
-                }else{
+                }else{ //if not then move the unsoted part
                     high = mid-1;
                 }
             }
