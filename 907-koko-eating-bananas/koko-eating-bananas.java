@@ -2,11 +2,7 @@ class Solution {
     public int minEatingSpeed(int[] piles, int h) {
         int low = 0;
         int ans = -1;
-        int high = Integer.MIN_VALUE;
-
-        for(int i=0;i<piles.length;i++){
-            if(piles[i]>=high) high = piles[i];
-        }
+        int high = Arrays.stream(piles).max().getAsInt();
 
         while(low<=high){
             int mid = low + (high-low)/2;
